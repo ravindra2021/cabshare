@@ -1,7 +1,8 @@
-package com.cabshare.app.controller;
+package com.cabshare.app.services;
 
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cabshare.app.model.request.CabShareRequestModel;
+import com.cabshare.app.repositories.CabShareRepository;
 
 import ch.hsr.geohash.GeoHash;
 
@@ -42,12 +44,15 @@ public class CabShareService {
 		List<CabShareRequestModel> resultList = new ArrayList<CabShareRequestModel>(); 
 		
 		for(String codeString:matchedCodeStrings) {
-		resultList.addAll(cabShareRepository.findAllByGeoHashCode(codeString));
+		
+		resultList.addAll(cabShareRepository.findAllByGeoHashCodeAndTime(codeString,req.getTimeStart(),req.getTimeEnd()));
 		}
 		
 		
-		return resultList;
-		//return cabShareRepository.findAllByGeoHashCode(geoHash);
+		
+		return resultList;  //this result list has all the active requests nearby.which are to be sorted by destination distance 
+		
+		
 	}
 	
 	public String geoHash(double latitude, double longitude, int numberOfCharacters) {
