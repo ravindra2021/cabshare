@@ -17,10 +17,11 @@ private double fromLocationLat;
 private double fromLocationLong;
 private double toLocationLat;
 private double toLocationLong;
-//LocalDateTime -	Represents both a date and a time (yyyy-MM-dd-HH-mm)
+
 @Column(name = "time_start", columnDefinition = "TIMESTAMP")
 @JsonFormat(pattern="dd-MM-yyyy-HH-mm")
 private LocalDateTime timeStart;
+
 
 @Column(name = "time_end", columnDefinition = "TIMESTAMP")
 @JsonFormat(pattern="dd-MM-yyyy-HH-mm")
